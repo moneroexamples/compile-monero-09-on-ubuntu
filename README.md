@@ -114,7 +114,7 @@ sudo mkdir -p /opt/bitmonero-dev/libs
 # and copy them to /opt/bitmonero-dev/libs
 # assuming you are still in bitmonero/ folder which you downloaded from
 # github
-sudo find ./build/ -name '*.a' -exec cp {} /opt/bitmonero-dev/libs  \;
+sudo find ./build/ -name '*.a' -exec cp -v {} /opt/bitmonero-dev/libs  \;
  ```
 
  This should results in the following file structure:
