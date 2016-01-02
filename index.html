@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="UTF-8">
+    <title>Monero Examples by moneroexamples</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="stylesheets/normalize.css" media="screen">
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="stylesheets/github-light.css" media="screen">
+  </head>
+  <body>
+    <section class="page-header">
+      <h1 class="project-name">Monero Examples</h1>
+      <h2 class="project-tagline">compile-monero-09-ubuntu-1510</h2>
+      <a href="https://github.com/moneroexamples/compile-monero-09-ubuntu-1510" class="btn">View on GitHub</a>
+      <a href="https://github.com/moneroexamples/compile-monero-09-ubuntu-1510/zipball/master" class="btn">Download .zip</a>
+      <a href="https://github.com/moneroexamples/compile-monero-09-ubuntu-1510/tarball/master" class="btn">Download .tar.gz</a>
+    </section>
+
+    <section class="main-content">
+      <h1>
+<a id="compile-monero-09-on-ubuntu-1510-x86_64" class="anchor" href="#compile-monero-09-on-ubuntu-1510-x86_64" aria-hidden="true"><span class="octicon octicon-link"></span></a>Compile Monero 0.9 on Ubuntu 15.10 x86_64</h1>
+
+<p><a href="https://github.com/monero-project/bitmonero/releases/tag/v0.9.0">Monero 0.9</a> finally arrived!</p>
+
+<p>This is good chance to update this example for Monero 0.9. Specifically, the example shows how to
+compile current github version of <a href="https://getmonero.org/">Monero</a>, as of 03 Jan 2015,
+on Ubuntu 15.10 x86_64.</p>
+
+<h2>
+<a id="preparation" class="anchor" href="#preparation" aria-hidden="true"><span class="octicon octicon-link"></span></a>Preparation</h2>
+
+<p>Before proceeding to the compilation, the following packages are required:</p>
+
+<div class="highlight highlight-source-shell"><pre><span class="pl-c"># update ubuntu's repository</span>
+sudo apt-get update
+
+<span class="pl-c">#install git</span>
+sudo apt-get install git
+
+<span class="pl-c"># install dependencies</span>
+sudo apt-get install build-essential cmake libboost-all-dev miniupnpc libunbound-dev graphviz doxygen libdb5.3++-dev</pre></div>
+
+<h2>
+<a id="compilation" class="anchor" href="#compilation" aria-hidden="true"><span class="octicon octicon-link"></span></a>Compilation</h2>
+
+<p>Having the dependencies, we can download the current Monero version and compile it as follows:</p>
+
+<div class="highlight highlight-source-shell"><pre><span class="pl-c"># download the latest bitmonero source code from github</span>
+git clone https://github.com/monero-project/bitmonero.git
+
+<span class="pl-c"># go into bitmonero folder</span>
+<span class="pl-c1">cd</span> bitmonero/
+
+<span class="pl-c"># compile</span>
+make <span class="pl-c"># or make -j number_of_threads, e.g., make -j 2</span></pre></div>
+
+<h2>
+<a id="installation-optional" class="anchor" href="#installation-optional" aria-hidden="true"><span class="octicon octicon-link"></span></a>Installation (optional)</h2>
+
+<p>After successful compilation, the Monero binaries should be located in <code>./build/release/bin</code> as shown
+below:</p>
+
+<div class="highlight highlight-source-shell"><pre>./bitmonero
+├── build
+│   └── release
+│       ├── bin
+│       │   ├── bitmonerod
+│       │   ├── blockchain_converter
+│       │   ├── blockchain_dump
+│       │   ├── blockchain_export
+│       │   ├── blockchain_import
+│       │   ├── cn_deserialize
+│       │   ├── connectivity_tool
+│       │   ├── simpleminer
+│       │   └── simplewallet
+
+<span class="pl-c"># other subfolders than bin not shown here.</span></pre></div>
+
+<p>I usually move the binaries into <code>/opt/bitmonero/</code> folder. This can be done
+as follows:</p>
+
+<div class="highlight highlight-source-shell"><pre><span class="pl-c"># optional</span>
+sudo mkdir /opt/bitmonero
+sudo mv ./build/release/bin/<span class="pl-k">*</span> /opt/bitmonero/</pre></div>
+
+<p>Now we can start the Monero daemon and let it
+download the blockchain and synchronize itself with the Monero network. After that, you can run your the <code>simplewallet</code>.</p>
+
+<div class="highlight highlight-source-shell"><pre><span class="pl-c"># launch the Monero daemon and let it synchronize with the Monero network</span>
+/opt/bitmonero/bitmonerod
+
+<span class="pl-c"># launch the Monero wallet</span>
+/opt/bitmonero/simplewallet</pre></div>
+
+<h2>
+<a id="monero-c11-development-optional" class="anchor" href="#monero-c11-development-optional" aria-hidden="true"><span class="octicon octicon-link"></span></a>Monero C++11 development (optional)</h2>
+
+<p>If you want to develop your own C++11 programs on top of Monero 0.9,
+Monero's static libraries and headers will be needed. Below is shown
+how they can be setup for use to write your own C++11 programs based
+on Monero. An example of such a program is  <a href="https://github.com/moneroexamples/access-blockchain-in-cpp">access-blockchain-in-cpp</a>.</p>
+
+<h3>
+<a id="monero-static-libraries" class="anchor" href="#monero-static-libraries" aria-hidden="true"><span class="octicon octicon-link"></span></a>Monero static libraries</h3>
+
+<p>When the compilation finishes, a number of static Monero libraries
+should be generated. We will need them to link against.</p>
+
+<p>Since they are spread out over different subfolders of the <code>./build/</code> folder, it is easier to just copy them into one folder. I assume that
+ <code>/opt/bitmonero-dev/libs</code> is the folder where they are going to be copied to.</p>
+
+<div class="highlight highlight-source-shell"><pre><span class="pl-c"># create the folder</span>
+sudo mkdir -p /opt/bitmonero-dev/libs
+
+<span class="pl-c"># find the static libraries files (i.e., those with extension of *.a)</span>
+<span class="pl-c"># and copy them to /opt/bitmonero-dev/libs</span>
+<span class="pl-c"># assuming you are still in bitmonero/ folder which you downloaded from</span>
+<span class="pl-c"># github</span>
+sudo find ./build/ -name <span class="pl-s"><span class="pl-pds">'</span>*.a<span class="pl-pds">'</span></span> -exec cp {} /opt/bitmonero-dev/libs  <span class="pl-cce">\;</span></pre></div>
+
+<p>This should results in the following file structure:</p>
+
+<div class="highlight highlight-source-shell"><pre> /opt/bitmonero-dev/
+└── libs
+    ├── libblockchain_db.a
+    ├── libblocks.a
+    ├── libcommon.a
+    ├── libcrypto.a
+    ├── libcryptonote_core.a
+    ├── libcryptonote_protocol.a
+    ├── libdaemonizer.a
+    ├── libgtest.a
+    ├── libgtest_main.a
+    ├── liblmdb.a
+    ├── libminiupnpc.a
+    ├── libmnemonics.a
+    ├── libotshell_utils.a
+    ├── libp2p.a
+    ├── librpc.a
+    └── libwallet.a</pre></div>
+
+<h3>
+<a id="monero-headers" class="anchor" href="#monero-headers" aria-hidden="true"><span class="octicon octicon-link"></span></a>Monero headers</h3>
+
+<p>Now we need to get Monero headers, as this is our interface to the
+Monero libraries. Folder <code>/opt/bitmonero-dev/headers</code> is assumed
+to hold the headers.</p>
+
+<div class="highlight highlight-source-shell"><pre><span class="pl-c"># create the folder</span>
+sudo mkdir -p /opt/bitmonero-dev/headers
+
+<span class="pl-c"># find the header files (i.e., those with extension of *.h)</span>
+<span class="pl-c"># and copy them to /opt/bitmonero-dev/headers.</span>
+<span class="pl-c"># but this time the structure of directories is important</span>
+<span class="pl-c"># so rsync is used to find and copy the headers files</span>
+sudo rsync -zarv --include=<span class="pl-s"><span class="pl-pds">"</span>*/<span class="pl-pds">"</span></span> --include=<span class="pl-s"><span class="pl-pds">"</span>*.h<span class="pl-pds">"</span></span> --exclude=<span class="pl-s"><span class="pl-pds">"</span>*<span class="pl-pds">"</span></span> --prune-empty-dirs ./ /opt/bitmonero-dev/headers</pre></div>
+
+<p>This should results in the following file structure:</p>
+
+<div class="highlight highlight-source-shell"><pre><span class="pl-c"># only src/ folder with with 4 level nesting shown</span>
+
+/opt/bitmonero-dev/
+├── headers
+│   ├── src
+│   │   ├── blockchain_db
+│   │   │   ├── berkeleydb
+│   │   │   ├── blockchain_db.h
+│   │   │   ├── db_types.h
+│   │   │   └── lmdb
+│   │   ├── blockchain_utilities
+│   │   │   ├── blockchain_utilities.h
+│   │   │   ├── blocksdat_file.h
+│   │   │   ├── bootstrap_file.h
+│   │   │   ├── bootstrap_serialization.h
+│   │   │   └── fake_core.h
+│   │   ├── blocks
+│   │   │   └── blocks.h
+│   │   ├── common
+│   │   │   ├── base58.h
+│   │   │   ├── boost_serialization_helper.h
+│   │   │   ├── command_line.h
+│   │   │   ├── dns_utils.h
+│   │   │   ├── http_connection.h
+│   │   │   ├── i18n.h
+│   │   │   ├── int-util.h
+│   │   │   ├── pod-class.h
+│   │   │   ├── rpc_client.h
+│   │   │   ├── scoped_message_writer.h
+│   │   │   ├── unordered_containers_boost_serialization.h
+│   │   │   ├── util.h
+│   │   │   └── varint.h
+│   │   ├── crypto
+│   │   │   ├── blake256.h
+│   │   │   ├── chacha8.h
+│   │   │   ├── crypto.h
+│   │   │   ├── crypto_ops_builder
+│   │   │   ├── crypto-ops.h
+│   │   │   ├── generic-ops.h
+│   │   │   ├── groestl.h
+│   │   │   ├── groestl_tables.h
+│   │   │   ├── <span class="pl-c1">hash</span>.h
+│   │   │   ├── hash-ops.h
+│   │   │   ├── initializer.h
+│   │   │   ├── jh.h
+│   │   │   ├── keccak.h
+│   │   │   ├── oaes_config.h
+│   │   │   ├── oaes_lib.h
+│   │   │   ├── random.h
+│   │   │   ├── skein.h
+│   │   │   └── skein_port.h
+│   │   ├── cryptonote_config.h
+│   │   ├── cryptonote_core
+│   │   │   ├── account_boost_serialization.h
+│   │   │   ├── account.h
+│   │   │   ├── blockchain.h
+│   │   │   ├── blockchain_storage_boost_serialization.h
+│   │   │   ├── blockchain_storage.h
+│   │   │   ├── checkpoints_create.h
+│   │   │   ├── checkpoints.h
+│   │   │   ├── connection_context.h
+│   │   │   ├── cryptonote_basic.h
+│   │   │   ├── cryptonote_basic_impl.h
+│   │   │   ├── cryptonote_boost_serialization.h
+│   │   │   ├── cryptonote_core.h
+│   │   │   ├── cryptonote_format_utils.h
+│   │   │   ├── cryptonote_stat_info.h
+│   │   │   ├── difficulty.h
+│   │   │   ├── hardfork.h
+│   │   │   ├── miner.h
+│   │   │   ├── tx_extra.h
+│   │   │   ├── tx_pool.h
+│   │   │   └── verification_context.h
+│   │   ├── cryptonote_protocol
+│   │   │   ├── blobdatatype.h
+│   │   │   ├── cryptonote_protocol_defs.h
+│   │   │   ├── cryptonote_protocol_handler_common.h
+│   │   │   └── cryptonote_protocol_handler.h
+│   │   ├── daemon
+│   │   │   ├── command_line_args.h
+│   │   │   ├── command_parser_executor.h
+│   │   │   ├── command_server.h
+│   │   │   ├── core.h
+│   │   │   ├── daemon.h
+│   │   │   ├── executor.h
+│   │   │   ├── p2p.h
+│   │   │   ├── protocol.h
+│   │   │   ├── rpc_command_executor.h
+│   │   │   └── rpc.h
+│   │   ├── daemonizer
+│   │   │   ├── daemonizer.h
+│   │   │   ├── posix_fork.h
+│   │   │   ├── windows_service.h
+│   │   │   └── windows_service_runner.h
+│   │   ├── miner
+│   │   │   ├── simpleminer.h
+│   │   │   ├── simpleminer_protocol_defs.h
+│   │   │   └── target_helper.h
+│   │   ├── mnemonics
+│   │   │   ├── electrum-words.h
+│   │   │   ├── english.h
+│   │   │   ├── german.h
+│   │   │   ├── italian.h
+│   │   │   ├── japanese.h
+│   │   │   ├── language_base.h
+│   │   │   ├── old_english.h
+│   │   │   ├── portuguese.h
+│   │   │   ├── russian.h
+│   │   │   ├── singleton.h
+│   │   │   └── spanish.h
+│   │   ├── p2p
+│   │   │   ├── net_node_common.h
+│   │   │   ├── net_node.h
+│   │   │   ├── net_peerlist_boost_serialization.h
+│   │   │   ├── net_peerlist.h
+│   │   │   ├── p2p_protocol_defs.h
+│   │   │   └── stdafx.h
+│   │   ├── platform
+│   │   │   ├── mingw
+│   │   │   └── msc
+│   │   ├── rpc
+│   │   │   ├── core_rpc_server_commands_defs.h
+│   │   │   ├── core_rpc_server_error_codes.h
+│   │   │   └── core_rpc_server.h
+│   │   ├── serialization
+│   │   │   ├── binary_archive.h
+│   │   │   ├── binary_utils.h
+│   │   │   ├── crypto.h
+│   │   │   ├── debug_archive.h
+│   │   │   ├── json_archive.h
+│   │   │   ├── json_utils.h
+│   │   │   ├── serialization.h
+│   │   │   ├── string.h
+│   │   │   ├── variant.h
+│   │   │   └── vector.h
+│   │   ├── simplewallet
+│   │   │   ├── password_container.h
+│   │   │   └── simplewallet.h
+│   │   └── wallet
+│   │       ├── wallet2.h
+│   │       ├── wallet_errors.h
+│   │       ├── wallet_rpc_server_commands_defs.h
+│   │       ├── wallet_rpc_server_error_codes.h
+│   │       └── wallet_rpc_server.h</pre></div>
+
+<p>Full <code>/opt/bitmonero-dev/</code> tree is <a href="https://github.com/moneroexamples/compile-monero-09-ubuntu-1510/blob/master/res/full_tree_bitmonero-dev.txt">here</a>.</p>
+
+<h2>
+<a id="how-can-you-help" class="anchor" href="#how-can-you-help" aria-hidden="true"><span class="octicon octicon-link"></span></a>How can you help?</h2>
+
+<p>Constructive criticism, code and website edits are always good. They can be made through github.</p>
+
+<p>Some Monero are also welcome:</p>
+
+<pre><code>48daf1rG3hE1Txapcsxh6WXNe9MLNKtu7W7tKTivtSoVLHErYzvdcpea2nSTgGkz66RFP4GKVAsTV14v6G3oddBTHfxP6tU
+</code></pre>
+
+      <footer class="site-footer">
+        <span class="site-footer-owner"><a href="https://github.com/moneroexamples/compile-monero-09-ubuntu-1510">Monero Examples</a> is maintained by <a href="https://github.com/moneroexamples">moneroexamples</a>.</span>
+
+        <span class="site-footer-credits">This page was generated by <a href="https://pages.github.com">GitHub Pages</a> using the <a href="https://github.com/jasonlong/cayman-theme">Cayman theme</a> by <a href="https://twitter.com/jasonlong">Jason Long</a>.</span>
+      </footer>
+
+    </section>
+
+  
+  </body>
+</html>
