@@ -1,15 +1,13 @@
-# Compile Monero 0.9 on Ubuntu 15.10 x86_64
-[Monero 0.9](https://github.com/monero-project/bitmonero/releases/tag/v0.9.0) finally arrived!
-
-This is good chance to update this example for Monero 0.9. Specifically, the example shows how to
-compile current github version of [Monero](https://getmonero.org/), as of 03 Jan 2015,
-on Ubuntu 15.10 x86_64.
+# Compile Monero 0.9 on Ubuntu 15.10 and 16.04 x64
+The example shows how to
+compile the current github version of [Monero](https://getmonero.org/), as of 03 Jan 2015,
+on Ubuntu 15.10 and 16.04.3 x64.
 
 ## Preparation
 Before proceeding to the compilation, the following packages are required:
 
  ```bash
-# update ubuntu's repository
+# update Ubuntu's repository
 sudo apt-get update
 
 #install git to easly get Monero from github
