@@ -289,6 +289,8 @@ This should results in the following file structure:
 │   │       └── wallet_rpc_server.h
 ```
 
+Full `/opt/bitmonero-dev/` tree is [here](https://github.com/moneroexamples/compile-monero-09-ubuntu-1510/blob/master/res/full_tree_bitmonero-dev.txt).
+
 ## How can you help?
 
 Constructive criticism, code and website edits are always good. They can be made through github.
