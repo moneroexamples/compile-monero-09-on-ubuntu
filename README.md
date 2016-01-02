@@ -3,7 +3,7 @@ The example shows how to
 compile the current github version of [Monero](https://getmonero.org/), as of 03 Jan 2015,
 on Ubuntu 15.10 and 16.04.3 x64.
 
-## Preparation
+## Dependencies (Ubuntu 15.10)
 Before proceeding to the compilation, the following packages are required:
 
  ```bash
@@ -14,11 +14,21 @@ sudo apt-get update
 sudo apt-get install git
 
 # install dependencies to be able to compile Monero
-
-# For Ubuntu 15.10:
 sudo apt-get install build-essential cmake libboost-all-dev miniupnpc libunbound-dev graphviz doxygen libdb5.3++-dev
+ ```
 
-# or for Ubuntu 14.04:  
+## Dependencies (Ubuntu 14.04)
+
+Before proceeding to the compilation, the following packages are required:
+
+ ```bash
+# update Ubuntu's repository
+sudo apt-get update
+
+#install git to easly get Monero from github
+sudo apt-get install git
+
+# install dependencies to be able to compile Monero
 sudo apt-get install build-essential cmake libboost1.55-all-dev miniupnpc libunbound-dev graphviz doxygen libdb5.1++-dev
  ```
 
