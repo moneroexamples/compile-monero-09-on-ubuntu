@@ -120,7 +120,7 @@ sudo find ./build/ -name '*.a' -exec cp -v {} /opt/bitmonero-dev/libs  \;
  This should results in the following file structure:
 
  ```bash
- /opt/bitmonero-dev/
+/opt/bitmonero-dev/
 └── libs
     ├── libblockchain_db.a
     ├── libblocks.a
