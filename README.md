@@ -57,8 +57,7 @@ below:
 # other subfolders than bin not shown here.
 ```
 
-I usually move the binaries into `/opt/bitmonero/` folder. This can be done
-as follows:
+I usually move the binaries into `/opt/bitmonero/` folder. This can be done as follows:
 
 ```bash
 # optional
