@@ -12,15 +12,15 @@ Before proceeding to the compilation, the following packages are required:
 # update ubuntu's repository
 sudo apt-get update
 
-#install git
+#install git to easly get Monero from github
 sudo apt-get install git
 
-# install dependencies
+# install dependencies to be able to compile Monero
 sudo apt-get install build-essential cmake libboost-all-dev miniupnpc libunbound-dev graphviz doxygen libdb5.3++-dev
  ```
 
 ## Compilation
-Having the dependencies, we can download the current Monero version and compile it as follows:
+Having the dependencies, we can download the current github Monero version and compile it as follows:
 
 ```bash
 # download the latest bitmonero source code from github
@@ -320,6 +320,11 @@ This should results in the following file structure:
 ```
 
 Full `/opt/bitmonero-dev/` tree is [here](https://github.com/moneroexamples/compile-monero-09-ubuntu-1510/blob/master/res/full_tree_bitmonero-dev.txt).
+
+## Other examples
+Other examples can be found on  [github](https://github.com/moneroexamples?tab=repositories).
+Please know that some of the examples/repositotires are not
+finished and may not work as intended.
 
 ## How can you help?
 
