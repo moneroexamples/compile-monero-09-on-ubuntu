@@ -44,7 +44,18 @@ cd bitmonero/
 
 # compile
 make # or make -j number_of_threads, e.g., make -j 2
+
+# test the monero compiled (optional)
+make test -C ./build/release/tests/
 ```
+
+**Note for Ubuntu 14.04**:
+At the moment, the compilation will fail with the error
+```
+Parse error. Expected a command name, got unquoted argument with text "]]"
+```
+A pull requrest was made to fix this problem.
+
 ## Installation (optional)
 After successful compilation, the Monero binaries should be located in `./build/release/bin` as shown
 below:
@@ -72,7 +83,7 @@ I usually move the binaries into `/opt/bitmonero/` folder. This can be done as f
 ```bash
 # optional
 sudo mkdir /opt/bitmonero
-sudo mv ./build/release/bin/* /opt/bitmonero/
+sudo mv -v ./build/release/bin/* /opt/bitmonero/
 ```
 
 This should result in:
