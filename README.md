@@ -95,7 +95,6 @@ This should result in:
 ├── blockchain_import
 ├── cn_deserialize
 ├── connectivity_tool
-├── showmixins
 ├── simpleminer
 └── simplewallet
 ```
