@@ -20,20 +20,18 @@
 
     <section class="main-content">
       <h1>
-<a id="compile-monero-09-on-ubuntu-1510-x86_64" class="anchor" href="#compile-monero-09-on-ubuntu-1510-x86_64" aria-hidden="true"><span class="octicon octicon-link"></span></a>Compile Monero 0.9 on Ubuntu 15.10 x86_64</h1>
+<a id="compile-monero-09-on-ubuntu-1510-and-1404-x64" class="anchor" href="#compile-monero-09-on-ubuntu-1510-and-1404-x64" aria-hidden="true"><span class="octicon octicon-link"></span></a>Compile Monero 0.9 on Ubuntu 15.10 and 14.04 x64</h1>
 
-<p><a href="https://github.com/monero-project/bitmonero/releases/tag/v0.9.0">Monero 0.9</a> finally arrived!</p>
-
-<p>This is good chance to update this example for Monero 0.9. Specifically, the example shows how to
-compile current github version of <a href="https://getmonero.org/">Monero</a>, as of 03 Jan 2015,
-on Ubuntu 15.10 x86_64.</p>
+<p>The example shows how to
+compile the current github version of <a href="https://getmonero.org/">Monero</a>, as of 03 Jan 2015,
+on Ubuntu 15.10 and 14.04.3 x64.</p>
 
 <h2>
-<a id="preparation" class="anchor" href="#preparation" aria-hidden="true"><span class="octicon octicon-link"></span></a>Preparation</h2>
+<a id="dependencies-ubuntu-1510" class="anchor" href="#dependencies-ubuntu-1510" aria-hidden="true"><span class="octicon octicon-link"></span></a>Dependencies (Ubuntu 15.10)</h2>
 
 <p>Before proceeding to the compilation, the following packages are required:</p>
 
-<div class="highlight highlight-source-shell"><pre><span class="pl-c"># update ubuntu's repository</span>
+<div class="highlight highlight-source-shell"><pre><span class="pl-c"># update Ubuntu's repository</span>
 sudo apt-get update
 
 <span class="pl-c">#install git to easly get Monero from github</span>
@@ -41,6 +39,20 @@ sudo apt-get install git
 
 <span class="pl-c"># install dependencies to be able to compile Monero</span>
 sudo apt-get install build-essential cmake libboost-all-dev miniupnpc libunbound-dev graphviz doxygen libdb5.3++-dev</pre></div>
+
+<h2>
+<a id="dependencies-ubuntu-1404" class="anchor" href="#dependencies-ubuntu-1404" aria-hidden="true"><span class="octicon octicon-link"></span></a>Dependencies (Ubuntu 14.04)</h2>
+
+<p>Before proceeding to the compilation, the following packages are required:</p>
+
+<div class="highlight highlight-source-shell"><pre><span class="pl-c"># update Ubuntu's repository</span>
+sudo apt-get update
+
+<span class="pl-c">#install git to easly get Monero from github</span>
+sudo apt-get install git
+
+<span class="pl-c"># install dependencies to be able to compile Monero</span>
+sudo apt-get install build-essential cmake libboost1.55-all-dev miniupnpc libunbound-dev graphviz doxygen libdb5.1++-dev</pre></div>
 
 <h2>
 <a id="compilation" class="anchor" href="#compilation" aria-hidden="true"><span class="octicon octicon-link"></span></a>Compilation</h2>
@@ -55,6 +67,16 @@ git clone https://github.com/monero-project/bitmonero.git
 
 <span class="pl-c"># compile</span>
 make <span class="pl-c"># or make -j number_of_threads, e.g., make -j 2</span></pre></div>
+
+<p><strong>Note for Ubuntu 14.04</strong>:
+At the moment, the compilation will fail with the error</p>
+
+<pre><code>Parse error. Expected a command name, got unquoted argument with text "]]"
+</code></pre>
+
+<p>A pull requrest was <a href="https://github.com/monero-project/bitmonero/pull/595">made</a> to fix this problem. The problem is that
+<code>./external/miniupnpc/CmakeLists.txt</code> contains block comments which are avaliable
+in cmake 3.0. Ubuntu 14.04 uses cmake 2.8 and the presence of the block comments results in the parse error.</p>
 
 <h2>
 <a id="installation-optional" class="anchor" href="#installation-optional" aria-hidden="true"><span class="octicon octicon-link"></span></a>Installation (optional)</h2>
@@ -78,12 +100,11 @@ below:</p>
 
 <span class="pl-c"># other subfolders than bin not shown here.</span></pre></div>
 
-<p>I usually move the binaries into <code>/opt/bitmonero/</code> folder. This can be done
-as follows:</p>
+<p>I usually move the binaries into <code>/opt/bitmonero/</code> folder. This can be done as follows:</p>
 
 <div class="highlight highlight-source-shell"><pre><span class="pl-c"># optional</span>
 sudo mkdir /opt/bitmonero
-sudo mv ./build/release/bin/<span class="pl-k">*</span> /opt/bitmonero/</pre></div>
+sudo mv -v ./build/release/bin/<span class="pl-k">*</span> /opt/bitmonero/</pre></div>
 
 <p>This should result in:</p>
 
@@ -132,11 +153,11 @@ sudo mkdir -p /opt/bitmonero-dev/libs
 <span class="pl-c"># and copy them to /opt/bitmonero-dev/libs</span>
 <span class="pl-c"># assuming you are still in bitmonero/ folder which you downloaded from</span>
 <span class="pl-c"># github</span>
-sudo find ./build/ -name <span class="pl-s"><span class="pl-pds">'</span>*.a<span class="pl-pds">'</span></span> -exec cp {} /opt/bitmonero-dev/libs  <span class="pl-cce">\;</span></pre></div>
+sudo find ./build/ -name <span class="pl-s"><span class="pl-pds">'</span>*.a<span class="pl-pds">'</span></span> -exec cp -v {} /opt/bitmonero-dev/libs  <span class="pl-cce">\;</span></pre></div>
 
 <p>This should results in the following file structure:</p>
 
-<div class="highlight highlight-source-shell"><pre> /opt/bitmonero-dev/
+<div class="highlight highlight-source-shell"><pre>/opt/bitmonero-dev/
 └── libs
     ├── libblockchain_db.a
     ├── libblocks.a
