@@ -51,7 +51,7 @@ At the moment, the compilation will fail with the error
 ```
 Parse error. Expected a command name, got unquoted argument with text "]]"
 ```
-A pull requrest was made to fix this problem. The problem is that
+A pull requrest was [made](https://github.com/monero-project/bitmonero/pull/595) to fix this problem. The problem is that
 `./external/miniupnpc/CmakeLists.txt` contains block comments which are avaliable
 in cmake 3.0. Ubuntu 14.04 uses cmake 2.8 and the presence of the block comments results in the parse error.
 
