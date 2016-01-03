@@ -14,7 +14,7 @@ sudo apt-get update
 sudo apt-get install git
 
 # install dependencies to be able to compile Monero
-sudo apt-get install build-essential cmake libboost-all-dev miniupnpc libunbound-dev graphviz doxygen libdb5.3++-dev
+sudo apt-get install build-essential cmake libboost-all-dev miniupnpc libunbound-dev graphviz doxygen
  ```
 
 ## Dependencies (Ubuntu 14.04)
@@ -29,7 +29,7 @@ sudo apt-get update
 sudo apt-get install git
 
 # install dependencies to be able to compile Monero
-sudo apt-get install build-essential cmake libboost1.55-all-dev miniupnpc libunbound-dev graphviz doxygen libdb5.1++-dev
+sudo apt-get install build-essential cmake libboost1.55-all-dev miniupnpc libunbound-dev graphviz doxygen
  ```
 
 ## Compilation
