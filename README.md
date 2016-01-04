@@ -46,15 +46,6 @@ cd bitmonero/
 make # or make -j number_of_threads, e.g., make -j 2
 ```
 
-**Note for Ubuntu 14.04**:
-At the moment, the compilation will fail with the error
-```
-Parse error. Expected a command name, got unquoted argument with text "]]"
-```
-A pull requrest was [made](https://github.com/monero-project/bitmonero/pull/595) to fix this problem. The problem is that
-`./external/miniupnpc/CmakeLists.txt` contains block comments which are avaliable
-in cmake 3.0. Ubuntu 14.04 uses cmake 2.8 and the presence of the block comments results in the parse error.
-
 ## Installation (optional)
 After successful compilation, the Monero binaries should be located in `./build/release/bin` as shown
 below:
