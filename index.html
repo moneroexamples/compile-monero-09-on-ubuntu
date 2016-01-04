@@ -68,16 +68,6 @@ git clone https://github.com/monero-project/bitmonero.git
 <span class="pl-c"># compile</span>
 make <span class="pl-c"># or make -j number_of_threads, e.g., make -j 2</span></pre></div>
 
-<p><strong>Note for Ubuntu 14.04</strong>:
-At the moment, the compilation will fail with the error</p>
-
-<pre><code>Parse error. Expected a command name, got unquoted argument with text "]]"
-</code></pre>
-
-<p>A pull requrest was <a href="https://github.com/monero-project/bitmonero/pull/595">made</a> to fix this problem. The problem is that
-<code>./external/miniupnpc/CmakeLists.txt</code> contains block comments which are avaliable
-in cmake 3.0. Ubuntu 14.04 uses cmake 2.8 and the presence of the block comments results in the parse error.</p>
-
 <h2>
 <a id="installation-optional" class="anchor" href="#installation-optional" aria-hidden="true"><span class="octicon octicon-link"></span></a>Installation (optional)</h2>
 
