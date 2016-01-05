@@ -333,6 +333,33 @@ This should results in the following file structure:
 
 Full `/opt/bitmonero-dev/` tree is [here](https://github.com/moneroexamples/compile-monero-09-ubuntu-1510/blob/master/res/full_tree_bitmonero-dev.txt).
 
+## Useful aliases (with rlwrap)
+`bitmonerod` and `simplewallet` do not have tab-compliton nor history.
+This problem can be overcome, using [rlwrap](https://github.com/hanslub42/rlwrap).
+
+```bash
+# install rlwrap
+sudo apt-get install rlwrap
+
+# download bitmonerod and simplewallet commands files
+wget -O ~/.bitmonero/monerocommands_bitmonerod.txt https://raw.githubusercontent.com/moneroexamples/compile-monero-ubuntu/master/monerocommands_bitmonerod.txt
+wget -O ~/.bitmonero/monerocommands_simplewallet.txt https://raw.githubusercontent.com/moneroexamples/compile-monero-ubuntu/master/monerocommands_simplewallet.txt
+
+# add aliases to .bashrc
+echo "alias moneronode='rlwrap -f ~/.bitmonero/monerocommands_simplewallet.txt /opt/bitmonero/bitmonerod'" >> ~/.bashrc
+echo "alias monerowallet='rlwrap -f ~/.bitmonero/monerocommands_bitmonerod.txt /opt/bitmonero/simplewallet'" >> ~/.bashrc
+
+# reload .bashrc
+source ~/.bashrc
+```
+
+
+
+
+As an alternative to the above aliases, the comamnds using rlwrap for having commands history and tab-compliton in the bitmonerod and simplewallet consoles are provided:
+
+
+
 ## Other examples
 Other examples can be found on  [github](https://github.com/moneroexamples?tab=repositories).
 Please know that some of the examples/repositotires are not
