@@ -346,6 +346,28 @@ sudo rsync -zarv --include=<span class="pl-s"><span class="pl-pds">"</span>*/<sp
 <p>Full <code>/opt/bitmonero-dev/</code> tree is <a href="https://github.com/moneroexamples/compile-monero-09-ubuntu-1510/blob/master/res/full_tree_bitmonero-dev.txt">here</a>.</p>
 
 <h2>
+<a id="useful-aliases-with-rlwrap" class="anchor" href="#useful-aliases-with-rlwrap" aria-hidden="true"><span class="octicon octicon-link"></span></a>Useful aliases (with rlwrap)</h2>
+
+<p><code>bitmonerod</code> and <code>simplewallet</code> do not have tab-compliton nor history.
+This problem can be overcome, using <a href="https://github.com/hanslub42/rlwrap">rlwrap</a>.</p>
+
+<div class="highlight highlight-source-shell"><pre><span class="pl-c"># install rlwrap</span>
+sudo apt-get install rlwrap
+
+<span class="pl-c"># download bitmonerod and simplewallet commands files</span>
+wget -O <span class="pl-k">~</span>/.bitmonero/monerocommands_bitmonerod.txt https://raw.githubusercontent.com/moneroexamples/compile-monero-ubuntu/master/monerocommands_bitmonerod.txt
+wget -O <span class="pl-k">~</span>/.bitmonero/monerocommands_simplewallet.txt https://raw.githubusercontent.com/moneroexamples/compile-monero-ubuntu/master/monerocommands_simplewallet.txt
+
+<span class="pl-c"># add aliases to .bashrc</span>
+<span class="pl-c1">echo</span> <span class="pl-s"><span class="pl-pds">"</span>alias moneronode='rlwrap -f ~/.bitmonero/monerocommands_simplewallet.txt /opt/bitmonero/bitmonerod'<span class="pl-pds">"</span></span> <span class="pl-k">&gt;&gt;</span> <span class="pl-k">~</span>/.bashrc
+<span class="pl-c1">echo</span> <span class="pl-s"><span class="pl-pds">"</span>alias monerowallet='rlwrap -f ~/.bitmonero/monerocommands_bitmonerod.txt /opt/bitmonero/simplewallet'<span class="pl-pds">"</span></span> <span class="pl-k">&gt;&gt;</span> <span class="pl-k">~</span>/.bashrc
+
+<span class="pl-c"># reload .bashrc</span>
+<span class="pl-c1">source</span> <span class="pl-k">~</span>/.bashrc</pre></div>
+
+<p>As an alternative to the above aliases, the comamnds using rlwrap for having commands history and tab-compliton in the bitmonerod and simplewallet consoles are provided:</p>
+
+<h2>
 <a id="other-examples" class="anchor" href="#other-examples" aria-hidden="true"><span class="octicon octicon-link"></span></a>Other examples</h2>
 
 <p>Other examples can be found on  <a href="https://github.com/moneroexamples?tab=repositories">github</a>.
